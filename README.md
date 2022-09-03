@@ -7,7 +7,7 @@ Programa donde se aplica el algoritmo de back propagation para poder predecir im
 - Formula del error de la capa de salida:
 $\delta_{k} = O_{k}(1-O_{k})(t_{k}-O_{k})$
 - Formula del error de la capas ocultas:
-$\delta_{h} = O_{h}(1-O_{h})\[ \sum_{i = j}^{n}\ w_{jh}\delta_{k}]$
+$\delta_{h} = O_{h}(1-O_{h})\[ \sum_{i = j}^{n}\ ]w_{jh}\delta_{k}$
 - Formula de la delta w:
 $\Delta w = n*\delta_{z}*x_{i}$
 - Fomrula de actualziacion del peso:
