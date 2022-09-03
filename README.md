@@ -7,11 +7,11 @@ Programa donde se aplica el algoritmo de back propagation para poder predecir im
 - Ademas de utilziar las siguientes formulas para poder actualizar los pesos de la red:
 - Formula del error de la capa de salida:
 $\delta_{k} = O_{k}(1-O_{k})(t_{k}-O_{k})$
-- Formula del error de la capas ocultas:
+- Formula del error de las capas ocultas:
 $\delta_{h} = O_{h}(1-O_{h}) \sum_{i = j}^{n} w_{jh}\delta_{k}$
 - Formula de la delta w:
 $\Delta w = n*\delta_{z}*x_{i}$
-- Fomrula de actualziacion del peso:
+- Formula de actualizacion del peso:
 $w_{i} = w + \alpha * \Delta w$
 - Curva de comportamiento del entranamiento del modelo:
 ![Alt text](acc_loss.png?raw=true "Acc Loss")
