@@ -2,7 +2,7 @@
 Programa donde se aplica el algoritmo de back propagation para poder predecir imagenes de numeros escritos a mano usando la dataset de scikit-learn y Python.
 - Para este ejercicio la dataset que utilziamos es la digitos de scikit learn, que van de 0 al 9, imagenes de numeros escritos a mano, son imagenes con un tamaño de 8x8.
 - En este repositorio utulizamos una red con la siguiente estrucutra:
-![Alt text](nueral_network.png?raw=true "Red nauronal:")
+![Alt text](neural_network.png?raw=true "Red nauronal:")
 - Ademas de utilziar las siguientes formulas para poder actualizar los pesos de la red:
 - Formula del error de la capa de salida:
 $\delta_{k} = O_{k}(1-O_{k})(t_{k}-O_{k})$
