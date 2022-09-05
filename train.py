@@ -77,7 +77,7 @@ def train_test_split(X,Y,test_size):
     #Devolvemos la dataset separada aleatoriamente
     return (X_train,X_test,Y_train,Y_test)
 
-X_train, X_test, y_train, y_test = train_test_split(X, digits.target, test_size=0.40)
+X_train, X_test, y_train, y_test = train_test_split(X, digits.target, test_size=0.20)
 
 #Funcion de activacion de las neuronas usadas, en este caso es una sigmoide
 def sigmoid(x):
@@ -157,33 +157,33 @@ w0 = generate_wt(32,64)
 print("Forma de capa w0: ",w0.shape)
 w1 = generate_wt(16,32)
 print("Forma de capa w1: ",w1.shape)
-w2 = generate_wt(4,16)
+w2 = generate_wt(10,16)
 print("Forma de capa w2: ",w2.shape)
 
-#Funcion que traduce el label de cada muestra a codigo binario, ya que como son 10 tipos de muestras diferentes necesitamos cuatro neuronas
+#Funcion que traduce el label de cada muestra a cada una de las salidas de las neuronas
 def target_cod(y):
     salida = []
     for i in y:
         if i == 0:
-            salida.append(np.array([[0,0,0,0]]).T)
+            salida.append(np.array([[1,0,0,0,0,0,0,0,0,0]]).T)
         elif i == 1:
-            salida.append(np.array([[0,0,0,1]]).T)
+            salida.append(np.array([[0,1,0,0,0,0,0,0,0,0]]).T)
         elif i == 2:
-            salida.append(np.array([[0,0,1,0]]).T)
+            salida.append(np.array([[0,0,1,0,0,0,0,0,0,0]]).T)
         elif i == 3:
-            salida.append(np.array([[0,0,1,1]]).T)
+            salida.append(np.array([[0,0,0,1,0,0,0,0,0,0]]).T)
         elif i == 4:
-            salida.append(np.array([[0,1,0,0]]).T)
+            salida.append(np.array([[0,0,0,0,1,0,0,0,0,0]]).T)
         elif i == 5:
-            salida.append(np.array([[0,1,0,1]]).T)
+            salida.append(np.array([[0,0,0,0,0,1,0,0,0,0]]).T)
         elif i == 6:
-            salida.append(np.array([[0,1,1,0]]).T)
+            salida.append(np.array([[0,0,0,0,0,0,1,0,0,0]]).T)
         elif i == 7:
-            salida.append(np.array([[0,1,1,1]]).T)
+            salida.append(np.array([[0,0,0,0,0,0,0,1,0,0]]).T)
         elif i == 8:
-            salida.append(np.array([[1,0,0,0]]).T)
+            salida.append(np.array([[0,0,0,0,0,0,0,0,1,0]]).T)
         elif i == 9:
-            salida.append(np.array([[1,0,0,1]]).T)
+            salida.append(np.array([[0,0,0,0,0,0,0,0,0,1]]).T)
     return np.array(salida)\
 #Traducimos los labels
 y_test_cod = target_cod(y_test)
@@ -191,7 +191,7 @@ y_train_cod = target_cod(y_train)
 
 #Declaramos los hiperparametros
 alpha = 0.1
-epchos = 35
+epchos = 75
 
 #Entrenamos el modelo
 acc,loss,w0,w1,w2 = train(X_train,y_train_cod,w0,w1,w2,alpha,epoch=epchos)
