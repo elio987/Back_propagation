@@ -77,7 +77,7 @@ def train_test_split(X,Y,test_size):
     #Devolvemos la dataset separada aleatoriamente
     return (X_train,X_test,Y_train,Y_test)
 
-X_train, X_test, y_train, y_test = train_test_split(X, digits.target, test_size=0.30)
+X_train, X_test, y_train, y_test = train_test_split(X, digits.target, test_size=0.40)
 
 #Funcion de activacion de las neuronas usadas, en este caso es una sigmoide
 def sigmoid(x):
@@ -190,8 +190,8 @@ y_test_cod = target_cod(y_test)
 y_train_cod = target_cod(y_train)
 
 #Declaramos los hiperparametros
-alpha = 0.01
-epchos = 125
+alpha = 0.1
+epchos = 35
 
 #Entrenamos el modelo
 acc,loss,w0,w1,w2 = train(X_train,y_train_cod,w0,w1,w2,alpha,epoch=epchos)

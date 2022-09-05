@@ -19,3 +19,4 @@ $w_{i} = w + \alpha * \Delta w$
 ![Alt text](predicciones.png?raw=true "Acc Loss")
 - El archivo train.py entrena la red y guarda los pesos obtenidos en un archivo pkl como la dataset de test (model: modelo.pkl, dataset test: test.pkl).
 - El archivo test.py abre estos pesos guardados y la dataset de test del los archivos pkl y muestra la precision del modelo en la dataset de test.
+- Hay archivo llamado analisis.pdf, donde muestro diferentes pruebas cambiando el tamaño del train y test, como también cambiando los hiperparametros de lr y epochs.
