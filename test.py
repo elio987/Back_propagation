@@ -82,7 +82,7 @@ for i in range(1, 7):
     #pasamos el label real a un label numerico
     y = y_decof(y_test_cod[lugar])
     print("Prediccion: ",out,", Real: ",y)
-    plt.imshow(np.reshape(X_test[lugar],(8,8)))
+    plt.imshow(np.reshape(X_test[lugar],(8,8)), cmap='gray')
     plt.title("real: "+str(y)+", pred: "+str(out))
     lugar += 1
 #Guardamos el modelo
