@@ -44,10 +44,15 @@ for i in range(len(X_test)):
 print("acc:", (1-(sum(l)/len(X_test)))*100," ======== loss:",sum(l)/len(X_test)) 
 
 #Ploteamos la unas cuantas imagenes y mostramos la predccion junto al label real_
-fig = plt.figure()
+fig = plt.figure(figsize=(10,10))
 lugar = 0
-for i in range(1, 7):
-    plt.subplot(2, 3, i)
+numeros = []
+for i in range(1, 11):
+    plt.subplot(2, 5, i)
+    y = np.argmax(y_test_cod[lugar])
+    while y in numeros:
+        lugar += 1
+        y = np.argmax(y_test_cod[lugar])
     #Predecimos
     #Como salida de una neurona corresponde a cada una de las categorias de la imagen obetnemos el index de la neurona con la salida mas grande
     out = np.argmax(feed_fwd(X_test[lugar],w0,w1,w2).T)
@@ -55,6 +60,7 @@ for i in range(1, 7):
     print("Prediccion: ",out,", Real: ",y)
     plt.imshow(np.reshape(X_test[lugar],(8,8)), cmap='gray')
     plt.title("real: "+str(y)+", pred: "+str(out))
+    numeros.append(y)
     lugar += 1
 #Guardamos el modelo
 plt.savefig('predicciones.png')

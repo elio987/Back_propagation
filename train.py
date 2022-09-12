@@ -78,6 +78,11 @@ def train_test_split(X,Y,test_size):
     return (X_train,X_test,Y_train,Y_test)
 
 X_train, X_test, y_train, y_test = train_test_split(X, digits.target, test_size=0.20)
+X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.10)
+
+print("Muestras train: ", X_train.shape[0])
+print("Muestras test: ", X_test.shape[0])
+print("Muestras validation: ", X_val.shape[0])
 
 #Funcion de activacion de las neuronas usadas, en este caso es una sigmoide
 def sigmoid(x):
@@ -132,19 +137,28 @@ def back_prop(x,y,w0,w1,w2,alpha):
     w2 = w2 + alpha*w2_adj
     return (w0,w1,w2)
 #Esta funcion lo que hace es iterar un numero de veces determinado o epochs en toda la dataset de train y aplicar back propagation para entrar la red
-def train(x, Y, w0, w1, w2, alpha = 0.01, epoch = 10):
+def train(x, Y, X_val, y_val_cod, w0, w1, w2, alpha = 0.01, epoch = 10):
     acc =[]
     losss =[]
+    acc_val =[]
+    losss_val =[]
     for j in range(epoch):
         l =[]
         for i in range(len(x)):
             out = feed_fwd(x[i], w0, w1, w2)
             l.append((loss(out, Y[i])))
             w0, w1, w2 = back_prop(x[i], Y[i], w0, w1, w2, alpha)
-        print("epochs:", j + 1, "======== acc:", (1-(sum(l)/len(x)))*100," ======== loss:",sum(l)/len(x))  
+        l_val =[]
+        for i in range(len(X_val)):
+            out = feed_fwd(X_val[i], w0, w1, w2)
+            l_val.append(loss(out, y_val_cod[i]))
+        print("epochs:", j + 1,"===== acc_val:", (1-(sum(l_val)/len(X_val)))*100," ===== loss_val:",sum(l_val)/len(X_val)) 
+        print("epochs:", j + 1, "===== acc:", (1-(sum(l)/len(x)))*100," ===== loss:",sum(l)/len(x))  
         acc.append((1-(sum(l)/len(x))))
         losss.append(sum(l)/len(x))
-    return(acc, losss, w0, w1, w2)
+        acc_val.append((1-(sum(l_val)/len(X_val))))
+        losss_val.append(sum(l_val)/len(X_val))
+    return(acc, losss, acc_val, losss_val, w0, w1, w2)
 #Funcion que obtiene la perdida de la red
 def loss(out, Y):
     s =(np.square(out-Y))
@@ -188,13 +202,14 @@ def target_cod(y):
 #Traducimos los labels
 y_test_cod = target_cod(y_test)
 y_train_cod = target_cod(y_train)
+y_val_cod = target_cod(y_val)
 
 #Declaramos los hiperparametros
 alpha = 0.1
-epchos = 75
+epchos = 30
 
 #Entrenamos el modelo
-acc,loss,w0,w1,w2 = train(X_train,y_train_cod,w0,w1,w2,alpha,epoch=epchos)
+acc,loss,acc_val,loss_val,w0,w1,w2 = train(X_train,y_train_cod,X_val,y_val_cod,w0,w1,w2,alpha,epoch=epchos)
 
 #Guardamos los pesos con pickle
 ws = (w0,w1,w2)
@@ -218,7 +233,9 @@ fig = plt.figure()
 #Guardamos el comporatmiento de la accuracy y la perdida a lo largo de las epochs
 plt.plot(np.arange(1,epchos+1,1), acc)
 plt.plot(np.arange(1,epchos+1,1), loss)
+plt.plot(np.arange(1,epchos+1,1), acc_val)
+plt.plot(np.arange(1,epchos+1,1), loss_val)
 plt.title("Acc and loss vs epochs")
-plt.legend(["Accuracy","Loss"])
+plt.legend(["Accuracy","Loss","Accuracy_val","Loss_val"])
 plt.savefig('acc_loss.png')
 plt.show()
